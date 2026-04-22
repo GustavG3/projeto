@@ -80,7 +80,7 @@ O algoritmo do Vizinho Mais Próximo complementa o Dijkstra ao gerar roteiros co
 
 > Insira o diagrama abaixo. Pode ser exportado do Draw.io, Excalidraw, etc.
 
-![Diagrama de arquitetura](Arquitetura em Camadas.jpeg)
+![Diagrama de arquitetura](<img width="1536" height="1024" alt="Image" src="https://github.com/user-attachments/assets/1c979faf-5775-4677-8d97-04529b3d0bab" />)
 
 ### Descrição das camadas
 
