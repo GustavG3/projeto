@@ -12,16 +12,14 @@ Abaixo está a organização das pastas conforme a arquitetura proposta:
 
 ```text
 TurisGraph/
+```text
+TurisGraph/
 ├── data/
-├── src/
-|└── mapa.json              # Dataset com cidades e conexões
-│└── main.py                # Interface de linha de comando (CLI)
-│   ├── core/               # Domínio: Lógica do Grafo
-│   ├── algorithms/         # Algoritmos: Dijkstra
-│   └── infra/              # Infraestrutura: Leitura de JSON
-├── tests/                  # Testes Unitários
-├── requirements.txt        # Dependências do projeto
-└── README.md               # Este arquivo
+├── src/             
+│└── principal.py                           
+├── tests/                  
+├── requirements.txt        
+└── README.md
 
 
 3. Como Executar o MVP
