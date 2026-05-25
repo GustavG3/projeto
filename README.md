@@ -14,7 +14,7 @@ Abaixo está a organização das pastas conforme a arquitetura proposta:
 TurisGraph/
 ├── data/
 ├── src/             
-│└── principal.py                           
+│└── main.py                           
 ├── tests/                  
 ├── requirements.txt        
 └── README.md               
