@@ -11,6 +11,7 @@ import math
 import json
 import os
 import urllib.request
+import unicodedata
 
 # ─────────────────────────────────────────────
 #  CARREGAR / BAIXAR GEOJSON DOS ESTADOS
@@ -26,7 +27,7 @@ def _load_geojson():
     req = urllib.request.Request(_GEOJSON_URL, headers={"User-Agent": "TurisGraph/1.0"})
     with urllib.request.urlopen(req, timeout=15) as r:
         data = json.loads(r.read())
-    with open(_CACHE_PATH, "w", encoding="utf-8") as f:
+    with open(_CACHE_PATH, "utf-8") as f:
         json.dump(data, f)
     return data
 
@@ -86,11 +87,10 @@ ESTADOS_GEO = {
     "Santa Catarina":     {"lon": -50.5,  "lat": -27.5,  "uf": "SC"},
     "São Paulo":          {"lon": -48.6,  "lat": -22.5,  "uf": "SP"},
     "Sergipe":            {"lon": -37.4,  "lat": -10.6,  "uf": "SE"},
-    "Tomantins":          {"lon": -48.3,  "lat": -10.2,  "uf": "TO"}, # Mantido para compatibilidade com o GeoJSON original se necessário, ajustado abaixo
     "Tocantins":          {"lon": -48.3,  "lat": -10.2,  "uf": "TO"},
 }
 
-# AJUSTE GEOGRÁFICO: Pesos recalculados com base em distâncias rodoviárias reais (Capitais/Principais rotas)
+# AJUSTE GEOGRÁFICO: Pesos recalculados com base em distâncias rodoviárias reais
 ARESTAS = [
     # ── Norte ─────────────────────────────────────────────────────────────────
     ("Roraima",            "Amazonas",             780,  "BR-174"),
@@ -111,11 +111,12 @@ ARESTAS = [
     ("Mato Grosso",        "Tocantins",            1150, "BR-158"),
     ("Mato Grosso",        "Goiás",                930,  "BR-070"),
     ("Mato Grosso",        "Mato Grosso do Sul",   710,  "BR-163"),
-    ("Goiás",              "Tocantins",            820,  "BR-153"),
-    ("Goiás",              "Bahia",                1150, "BR-020/242"), # Aumentado para refletir a travessia real do Centro-Oeste ao litoral Baiano
+    ("Goiás",              "Tocantins",            920,  "BR-153"),
+    ("Goiás",              "Bahia",                1150, "BR-020/242"),
     ("Goiás",              "Minas Gerais",         880,  "BR-050/040"),
     ("Goiás",              "Mato Grosso do Sul",   830,  "BR-060"),
-    ("Goiás",              "São Paulo",            870,  "BR-153"),     # Rota corrigida SP-GO real
+    ("São Paulo",          "Minas Gerais",         540,  "BR-050/BR-153"), # SP até o Triângulo Mineiro
+    ("Minas Gerais",       "Goiás",                340,  "BR-050/BR-153"), # Triângulo Mineiro até Goiânia/Goiás
     ("Goiás",              "Distrito Federal",     210,  "BR-060"),
     ("Distrito Federal",   "Minas Gerais",         740,  "BR-040"),
     ("Distrito Federal",   "Bahia",                1100, "BR-020"),
@@ -144,9 +145,9 @@ ARESTAS = [
     ("Alagoas",            "Bahia",                640,  "BR-101"),
     ("Sergipe",            "Bahia",                320,  "BR-101"),
 
-    # ── Sudeste (O miolo que corrige o seu problema) ──────────────────────────
-    ("São Paulo",          "Minas Gerais",         580,  "BR-381 Fernão Dias"), # SP para BH
-    ("Minas Gerais",       "Bahia",                870,  "BR-116/251"),          # BH para Salvador/Sul da BA
+    # ── Sudeste ───────────────────────────────────────────────────────────────
+    ("São Paulo",          "Minas Gerais",         580,  "BR-381 Fernão Dias"),
+    ("Minas Gerais",       "Bahia",                870,  "BR-116/251"),
     ("Bahia",              "Espírito Santo",       1100, "BR-101"),
     ("Bahia",              "Tocantins",            1200, "BR-242/020"),
     ("Minas Gerais",       "Espírito Santo",       520,  "BR-262"),
@@ -254,7 +255,6 @@ C = {
     "label_uf":      (150, 185, 230),
 }
 
-# Bounding box EXATO do GeoJSON do Brasil
 LON_MIN, LON_MAX = -73.99, -32.39
 LAT_MIN, LAT_MAX = -33.75,   5.27
 
@@ -298,7 +298,15 @@ class TurisGraphApp:
         self.grafo = Grafo()
         for de, para, km, rod in ARESTAS:
             self.grafo.adicionar_aresta(de, para, km, rod)
-        self.estados_list = sorted([k for k in self.grafo.adjacencia.keys() if k in ESTADOS_GEO])
+            
+        # Ordenação alfabética inteligente removendo acentos apenas na chave de ordenação
+        def _remover_acentos(txt):
+            return "".join(c for c in unicodedata.normalize("NFD", txt) if unicodedata.category(c) != "Mn")
+            
+        self.estados_list = sorted(
+            [k for k in self.grafo.adjacencia.keys() if k in ESTADOS_GEO],
+            key=lambda x: _remover_acentos(x).lower()
+        )
 
         self.origem    = None
         self.destino   = None
