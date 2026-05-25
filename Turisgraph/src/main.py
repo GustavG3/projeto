@@ -94,44 +94,40 @@ ESTADOS_GEO = {
 ARESTAS = [
     # ── Norte ─────────────────────────────────────────────────────────────────
     ("Roraima",            "Amazonas",             780,  "BR-174"),
-    ("Roraima",            "Pará",                 1350, "BR-210/174"),
-    ("Roraima",            "Amapá",                1850, "BR-156/174"),
-    ("Amapá",              "Pará",                 650,  "BR-156/010"),
-    ("Pará",               "Amazonas",             1290, "BR-230 Transamazônica"),
+    ("Pará",               "Amazonas",             2900, "BR-230/BR-319"), 
     ("Pará",               "Maranhão",             810,  "BR-316"),
-    ("Pará",               "Mato Grosso",          1100, "BR-163"),
-    ("Pará",               "Tocantins",            1020, "BR-153/226"),
+    ("Pará",               "Mato Grosso",          1700, "BR-163"), 
+    ("Pará",               "Tocantins",            1220, "BR-153/BR-226"),
     ("Amazonas",           "Acre",                 1450, "BR-317"),
     ("Amazonas",           "Rondônia",             900,  "BR-319"),
-    ("Amazonas",           "Mato Grosso",          1600, "BR-230/163"),
+    ("Amazonas",           "Mato Grosso",          2300, "BR-319/BR-364"),
     ("Acre",               "Rondônia",             510,  "BR-364"),
 
     # ── Centro-Oeste ───────────────────────────────────────────────────────────
     ("Rondônia",           "Mato Grosso",          1450, "BR-364"),
-    ("Mato Grosso",        "Tocantins",            1150, "BR-158"),
+    ("Mato Grosso",        "Tocantins",            1300, "BR-158"), # Cuiabá a Palmas
     ("Mato Grosso",        "Goiás",                930,  "BR-070"),
     ("Mato Grosso",        "Mato Grosso do Sul",   710,  "BR-163"),
     ("Goiás",              "Tocantins",            920,  "BR-153"),
-    ("Goiás",              "Bahia",                1150, "BR-020/242"),
+    ("Goiás",              "Bahia",                1220, "BR-020/BR-242"), # Goiânia a Salvador
     ("Goiás",              "Minas Gerais",         880,  "BR-050/040"),
-    ("Goiás",              "Mato Grosso do Sul",   830,  "BR-060"),
-    ("São Paulo",          "Minas Gerais",         540,  "BR-050/BR-153"), # SP até o Triângulo Mineiro
-    ("Minas Gerais",       "Goiás",                340,  "BR-050/BR-153"), # Triângulo Mineiro até Goiânia/Goiás
+    ("Goiás",              "Mato Grosso do Sul",   830,  "BR-060"), 
+    ("Minas Gerais",       "Goiás",                340,  "BR-050/BR-153"), 
     ("Goiás",              "Distrito Federal",     210,  "BR-060"),
     ("Distrito Federal",   "Minas Gerais",         740,  "BR-040"),
     ("Distrito Federal",   "Bahia",                1100, "BR-020"),
-    ("Mato Grosso do Sul", "Minas Gerais",         980,  "BR-262"),
+    ("Mato Grosso do Sul", "Minas Gerais",         1010, "BR-262"), # Campo Grande a BH
     ("Mato Grosso do Sul", "São Paulo",            1010, "BR-267/374"),
     ("Mato Grosso do Sul", "Paraná",               990,  "BR-163"),
 
     # ── Nordeste ───────────────────────────────────────────────────────────────
     ("Maranhão",           "Piauí",                440,  "BR-316"),
-    ("Maranhão",           "Tocantins",            650,  "BR-010"),
+    ("Maranhão",           "Tocantins",            1220, "BR-010"), 
     ("Maranhão",           "Ceará",                1000, "BR-222"),
     ("Piauí",              "Ceará",                595,  "BR-343/222"),
-    ("Piauí",              "Pernambuco",           1100, "BR-316"),
+    ("Piauí",              "Pernambuco",           1130, "BR-316"), # Teresina a Recife
     ("Piauí",              "Bahia",                1170, "BR-135"),
-    ("Piauí",              "Tocantins",            920,  "BR-230/153"),
+    ("Piauí",              "Tocantins",            1100, "BR-230/153"), # Teresina a Palmas
     ("Ceará",              "Rio Grande do Norte",  530,  "BR-304"),
     ("Ceará",              "Paraíba",              680,  "BR-116/230"),
     ("Ceará",              "Pernambuco",           800,  "BR-116/232"),
@@ -147,9 +143,9 @@ ARESTAS = [
 
     # ── Sudeste ───────────────────────────────────────────────────────────────
     ("São Paulo",          "Minas Gerais",         580,  "BR-381 Fernão Dias"),
-    ("Minas Gerais",       "Bahia",                870,  "BR-116/251"),
-    ("Bahia",              "Espírito Santo",       1100, "BR-101"),
-    ("Bahia",              "Tocantins",            1200, "BR-242/020"),
+    ("Minas Gerais",       "Bahia",                1360,  "BR-116/110"),
+    ("Bahia",              "Espírito Santo",       1200, "BR-101"),
+    ("Bahia",              "Tocantins",            1400, "BR-242/020"),
     ("Minas Gerais",       "Espírito Santo",       520,  "BR-262"),
     ("Minas Gerais",       "Rio de Janeiro",       440,  "BR-040"),
     ("Rio de Janeiro",     "Espírito Santo",       510,  "BR-101"),
